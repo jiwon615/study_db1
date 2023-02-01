@@ -15,7 +15,7 @@ public class DBConnectionUtil {
         try {
             // DriverManager는 라이브러리에 등록된 드라이버 목록을 자동으로 인식하여 해당 DBMS 전용의 Connection을 획득하는 기능
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            log.info("get connection={}, class={}", connection, connection.getClass());
+            log.info("get connection={}, class={}", connection, connection.getClass());  // getClass()하면 구현체 클래스명 가져옴
             return connection;
         } catch (SQLException e) {
             throw new IllegalStateException(e);
