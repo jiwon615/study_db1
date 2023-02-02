@@ -2,6 +2,7 @@ package com.study.jdbc.repository;
 
 import com.study.jdbc.connection.DBConnectionUtil;
 import com.study.jdbc.domain.Member;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.support.JdbcUtils;
 
@@ -15,13 +16,10 @@ import static com.study.jdbc.connection.ConnectionConstant.*;
  * JDBC - DataSource, JDBCUtil 사용
  */
 @Slf4j
+@AllArgsConstructor
 public class MemberRepositoryV1 {
 
     private final DataSource dataSource;
-
-    public MemberRepositoryV1(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";

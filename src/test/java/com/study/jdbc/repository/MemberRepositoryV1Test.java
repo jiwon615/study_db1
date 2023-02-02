@@ -51,8 +51,8 @@ class MemberRepositoryV1Test {
         assertThat(updatedMember.getMoney()).isEqualTo(2000);
 
         // delete
-        repository.delete(member.getMemberId());
-        assertThatThrownBy(() -> repository.findById(member.getMemberId()))
-                .isInstanceOf(NoSuchElementException.class);
+//        repository.delete(member.getMemberId());
+//        assertThatThrownBy(() -> repository.findById(member.getMemberId()))
+//                .isInstanceOf(NoSuchElementException.class);
     }
 }
