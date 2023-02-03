@@ -1,7 +1,6 @@
 package com.study.jdbc.service;
 
 import com.study.jdbc.domain.Member;
-import com.study.jdbc.repository.MemberRepositoryV2;
 import com.study.jdbc.repository.MemberRepositoryV3;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,35 +9,32 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * 트랜잭션 - 트랜잭션 매니저
+ * 트랜잭션 - 트랜잭션 템플릿 (반복코드 줄이기)
  */
-@RequiredArgsConstructor
 @Slf4j
-public class MemberServiceV3_1 {
+public class MemberServiceV3_2 {
 
-//    private final DataSource dataSource;
-    private final PlatformTransactionManager transactionManager;
+//    private final PlatformTransactionManager transactionManager;
+    private final TransactionTemplate txTemplate;
     private final MemberRepositoryV3 memberRepository;
 
+    public MemberServiceV3_2(PlatformTransactionManager transactionManager, MemberRepositoryV3 memberRepository) {
+        this.txTemplate = new TransactionTemplate(transactionManager);
+        this.memberRepository = memberRepository;
+    }
+
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
-        // 트랜잭션 시작
-
-        // status에는 현재 트랜잭션의 상태 정보가 포함 됨 (커밋, 롤백을 위해 필요)
-        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
-
-        // commit 혹은 rollback 되면 transactionManager 가 알아서 마지막에 close 해주므로 따로 finally에서 close 할 필요 없음
-        try {
-            executeAccountTransfer(fromId, toId, money);
-            transactionManager.commit(status);
-        } catch (Exception e) {
-            transactionManager.rollback(status);
-            throw new IllegalStateException();
-        }
+        // executeWithoutResult 안에서 트랜잭션 시작 후, executeAccountTransfer()라는 비즈니스 로직 수행 후, 성공 ? commit : rollback
+        txTemplate.executeWithoutResult((status) -> {
+            try {
+                executeAccountTransfer(fromId, toId, money);
+            } catch (SQLException e) {
+                throw new IllegalStateException();
+            }
+        });
     }
 
     private void executeAccountTransfer(String fromId, String toId, int money) throws SQLException {
