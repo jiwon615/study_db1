@@ -1,17 +1,13 @@
 package com.study.jdbc.service;
 
 import com.study.jdbc.domain.Member;
-import com.study.jdbc.repository.MemberRepositoryV2;
 import com.study.jdbc.repository.MemberRepositoryV3;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -21,7 +17,7 @@ import java.sql.SQLException;
 @Slf4j
 public class MemberServiceV3_1 {
 
-//    private final DataSource dataSource;
+    //    private final DataSource dataSource;
     private final PlatformTransactionManager transactionManager;
     private final MemberRepositoryV3 memberRepository;
 

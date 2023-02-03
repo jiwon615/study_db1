@@ -1,12 +1,9 @@
 package com.study.jdbc.service;
 
 import com.study.jdbc.domain.Member;
-import com.study.jdbc.repository.MemberRepositoryV1;
 import com.study.jdbc.repository.MemberRepositoryV2;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
