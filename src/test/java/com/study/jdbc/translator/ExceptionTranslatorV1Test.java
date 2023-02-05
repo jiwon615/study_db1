@@ -20,6 +20,9 @@ import java.util.Random;
 
 import static com.study.jdbc.connection.ConnectionConstant.*;
 
+/**
+ * SQL ErrorCode를 직접 확인하여 예외처리 하는 방법
+ */
 @Slf4j
 public class ExceptionTranslatorV1Test {
 
@@ -28,7 +31,7 @@ public class ExceptionTranslatorV1Test {
 
     @BeforeEach
     void init() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+        DataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
         repository = new Repository(dataSource);
         service = new Service(repository);
     }

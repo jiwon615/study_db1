@@ -3,6 +3,7 @@ package com.study.jdbc.service;
 import com.study.jdbc.domain.Member;
 import com.study.jdbc.repository.MemberRepository;
 import com.study.jdbc.repository.MemberRepositoryV4;
+import com.study.jdbc.repository.MemberRepositoryV4_2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -47,7 +48,8 @@ class MemberServiceV4Test {
 
         @Bean
         MemberRepository memberRepository() {
-            return new MemberRepositoryV4(dataSource);
+//            return new MemberRepositoryV4(dataSource); // 단순 에외 변환
+            return new MemberRepositoryV4_2(dataSource); // 스프링 예외 변환
         }
 
         @Bean
@@ -57,7 +59,7 @@ class MemberServiceV4Test {
     }
 
     @AfterEach
-    void after() throws SQLException {
+    void after() {
         memberRepository.delete(MEMBER_A);
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
@@ -74,7 +76,7 @@ class MemberServiceV4Test {
 
     @Test
     @DisplayName("정상 이체")
-    void accountTransfer() throws SQLException {
+    void accountTransfer() {
         // given
         Member memberA = new Member(MEMBER_A, 10000);
         Member memberB = new Member(MEMBER_B, 10000);
