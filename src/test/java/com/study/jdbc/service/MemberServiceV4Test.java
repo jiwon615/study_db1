@@ -4,6 +4,7 @@ import com.study.jdbc.domain.Member;
 import com.study.jdbc.repository.MemberRepository;
 import com.study.jdbc.repository.MemberRepositoryV4;
 import com.study.jdbc.repository.MemberRepositoryV4_2;
+import com.study.jdbc.repository.MemberRepositoryV5;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +50,8 @@ class MemberServiceV4Test {
         @Bean
         MemberRepository memberRepository() {
 //            return new MemberRepositoryV4(dataSource); // 단순 에외 변환
-            return new MemberRepositoryV4_2(dataSource); // 스프링 예외 변환
+//            return new MemberRepositoryV4_2(dataSource); // 스프링 예외 변환
+            return new MemberRepositoryV5(dataSource); // JdbcTemplate
         }
 
         @Bean
