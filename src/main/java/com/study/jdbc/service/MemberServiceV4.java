@@ -8,8 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 예외 누수 문제 해결
- * SQLException 제거
- * <p>
+ * SQLException 제거 (특정 JDBC 기술에 의존하지 않고 순수 비즈니스 로직만 작성 하게 됨)
  * MemberRepository 인터페이스 의존
  */
 @Slf4j
